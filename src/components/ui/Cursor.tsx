@@ -7,18 +7,24 @@ type Props = {
 
 const Cursor = ({ className = '' }: Props) => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+
     const onMouseMove = (e: MouseEvent) => {
       setPosition({ x: e.clientX, y: e.clientY });
     };
 
-    document.addEventListener('mousemove', onMouseMove);
+    window.addEventListener('mousemove', onMouseMove);
+    setEnabled(true);
 
     return () => {
-      document.removeEventListener('mousemove', onMouseMove);
+      window.removeEventListener('mousemove', onMouseMove);
     };
   }, []);
+
+  if (!enabled) return null;
 
   return (
     <div

@@ -21,10 +21,9 @@ export default function ThemeProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
-  const [hydrated, setHydrated] = useState(false); // evita flicker
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [hydrated, setHydrated] = useState(false);
 
-  // Lê do localStorage APÓS montagem
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const darkPref = localStorage.getItem('darkMode');
@@ -35,7 +34,8 @@ export default function ThemeProvider({
   }, []);
 
   useEffect(() => {
-    if (!hydrated) return;
+    if (!hydrated || typeof document === 'undefined') return;
+
     localStorage.setItem('darkMode', JSON.stringify(isDarkMode));
     if (isDarkMode) {
       document.documentElement.classList.add('dark');

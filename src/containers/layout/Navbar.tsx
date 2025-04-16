@@ -18,7 +18,6 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
-// ✅ Scroll behavior ao ocultar navbar
 const hideNavWhileScrolling = ({
   id = 'navbar',
   offset = 100,
@@ -56,25 +55,23 @@ type NavItemsProps = {
   onClick?: (event: React.MouseEvent) => void;
 };
 
-const NavItem = ({ href, children, onClick, index, delay }: NavItemsProps) => {
-  return (
-    <motion.li
-      className="group"
-      variants={slideIn({ delay: delay + index / 10, direction: 'down' })}
-      initial="hidden"
-      animate="show"
+const NavItem = ({ href, children, onClick, index, delay }: NavItemsProps) => (
+  <motion.li
+    className="group"
+    variants={slideIn({ delay: delay + index / 10, direction: 'down' })}
+    initial="hidden"
+    animate="show"
+  >
+    <CLink
+      href={href || `/#${children}`}
+      className="block p-2 duration-500 hover:text-accent"
+      onClick={onClick}
+      withPadding
     >
-      <CLink
-        href={href || `/#${children}`}
-        className="block p-2 duration-500 hover:text-accent"
-        onClick={onClick}
-        withPadding
-      >
-        {children}
-      </CLink>
-    </motion.li>
-  );
-};
+      {children}
+    </CLink>
+  </motion.li>
+);
 
 const Navbar = () => {
   const { cta, navLinks } = navbarSection;
@@ -105,9 +102,7 @@ const Navbar = () => {
       </h1>
 
       <NavButton
-        onClick={() => {
-          setNavbarCollapsed((prev) => !prev);
-        }}
+        onClick={() => setNavbarCollapsed((prev) => !prev)}
         navbarCollapsed={navbarCollapsed}
         className="md:invisible"
       />
