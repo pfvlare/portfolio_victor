@@ -4,20 +4,6 @@ Uma landing page/portfólio pessoal construída com Next.js e Tailwind CSS que a
 
 ---
 
-## Sumário
-
-- [Visão Geral](#visão-geral)
-- [Tecnologias Utilizadas](#tecnologias-utilizadas)
-- [Recursos e Funcionalidades](#recursos-e-funcionalidades)
-- [Instalação e Configuração](#instalação-e-configuração)
-- [Uso e Desenvolvimento](#uso-e-desenvolvimento)
-- [Deploy](#deploy)
-- [Contribuição](#contribuição)
-- [Licença](#licença)
-- [Contato](#contato)
-
----
-
 ## Visão Geral
 
 Este projeto é o portfólio pessoal de Victor Gois, um engenheiro de software sênior especializado em tecnologias como React, React Native, Vue, Node.js, Next.js, NestJS e TypeScript.  
