@@ -1,6 +1,4 @@
 'use client';
-import { Cursor } from '@/components';
-
 import {
   createContext,
   useCallback,
@@ -59,7 +57,6 @@ export default function ThemeProvider({
         disableDarkMode,
       }}
     >
-      <Cursor className="hidden dark:lg:block" />
       {children}
     </ThemeContext.Provider>
   );
