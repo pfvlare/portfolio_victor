@@ -45,17 +45,24 @@ const TabList = ({ experiences }: Props) => {
         ></div>
       </div>
 
+      {/* Conteúdo da experiência ativa */}
       <div key={getId()} className="p-1 space-y-5">
         <div className="space-y-1">
           <h3 className="text-lg font-medium capitalize text-dark-2">
             {role}{' '}
-            <Link href={companyUrl} target="_blank" className="text-accent">
-              @{company}
-            </Link>
+            {companyUrl ? (
+              <Link href={companyUrl} target="_blank" className="text-accent">
+                @{company}
+              </Link>
+            ) : (
+              <span className="text-accent">@{company}</span>
+            )}
           </h3>
-          <p className="font-mono text-xs capitalize">
-            {started?.toString()} - {upto?.toString()}
-          </p>
+          {(started || upto) && (
+            <p className="font-mono text-xs capitalize">
+              {started?.toString()} - {upto?.toString()}
+            </p>
+          )}
         </div>
 
         <ul className="space-y-2">

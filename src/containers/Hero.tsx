@@ -1,4 +1,5 @@
 'use client';
+
 import { heroSection } from '@/lib/content/hero';
 import useWindowWidth from '@/lib/hooks/use-window-width';
 import { getBreakpointsWidth } from '@/lib/utils/helper';
@@ -34,7 +35,7 @@ const Hero = () => {
         {subtitle}
       </motion.p>
 
-      {/* Título principal e tagline */}
+      {/* Nome e cargo/tagline */}
       <div className="max-w-4xl text-3xl sm:text-4xl md:text-5xl font-semibold leading-snug tracking-tight">
         <motion.h1
           variants={slideUp({ delay: getAnimationDelay(1) })}
@@ -45,14 +46,14 @@ const Hero = () => {
           {title}
         </motion.h1>
 
-        <motion.h1
+        <motion.h2
           variants={slideUp({ delay: getAnimationDelay(2) })}
           initial="hidden"
           animate="show"
           className="text-slate-800 dark:text-slate-300 max-w-3xl leading-relaxed text-balance"
         >
           {tagline}
-        </motion.h1>
+        </motion.h2>
       </div>
 
       {/* Descrição */}
@@ -65,17 +66,19 @@ const Hero = () => {
         {description}
       </motion.p>
 
-      {/* Texto especial */}
-      <motion.p
-        variants={slideUp({ delay: getAnimationDelay(4) })}
-        initial="hidden"
-        animate="show"
-        className="font-mono text-xs md:text-sm text-accent mt-2"
-      >
-        {specialText}
-      </motion.p>
+      {/* Texto especial (disponibilidade, motivação etc) */}
+      {specialText && (
+        <motion.p
+          variants={slideUp({ delay: getAnimationDelay(4) })}
+          initial="hidden"
+          animate="show"
+          className="font-mono text-xs md:text-sm text-accent mt-2"
+        >
+          {specialText}
+        </motion.p>
+      )}
 
-      {/* Botão CTA */}
+      {/* Botão CTA (currículo/link) */}
       {cta && (
         <Button
           size="lg"

@@ -9,15 +9,9 @@ import {
 
 const initialState = {
   isDarkMode: false,
-  toggle: () => {
-    return;
-  },
-  enableDarkMode: (_: boolean) => {
-    return;
-  },
-  disableDarkMode: (_: boolean) => {
-    return;
-  },
+  toggle: () => { },
+  enableDarkMode: () => { },
+  disableDarkMode: () => { },
 };
 
 const ThemeContext = createContext(initialState);
@@ -27,33 +21,32 @@ export default function ThemeProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(
-    typeof window !== 'undefined' &&
-      JSON.parse(localStorage.getItem('darkMode') || 'true')
-      ? true
-      : false
-  );
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+  const [hydrated, setHydrated] = useState(false); // evita flicker
 
-  const toggle = useCallback(() => {
-    setIsDarkMode((prev) => !prev);
-  }, []);
-
-  const enableDarkMode = useCallback(() => {
-    setIsDarkMode(true);
-  }, []);
-
-  const disableDarkMode = useCallback(() => {
-    setIsDarkMode(false);
+  // Lê do localStorage APÓS montagem
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const darkPref = localStorage.getItem('darkMode');
+      const isDark = darkPref ? JSON.parse(darkPref) : true;
+      setIsDarkMode(isDark);
+      setHydrated(true);
+    }
   }, []);
 
   useEffect(() => {
+    if (!hydrated) return;
     localStorage.setItem('darkMode', JSON.stringify(isDarkMode));
     if (isDarkMode) {
       document.documentElement.classList.add('dark');
     } else {
       document.documentElement.classList.remove('dark');
     }
-  }, [isDarkMode]);
+  }, [isDarkMode, hydrated]);
+
+  const toggle = useCallback(() => setIsDarkMode((prev) => !prev), []);
+  const enableDarkMode = useCallback(() => setIsDarkMode(true), []);
+  const disableDarkMode = useCallback(() => setIsDarkMode(false), []);
 
   return (
     <ThemeContext.Provider
